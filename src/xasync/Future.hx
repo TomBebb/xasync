@@ -7,9 +7,10 @@ class Future<TState> {
 	/** Track state changes **/
 	public var stateChanged = new Signal<TState>();
 
-	public inline function onStateChanged(changed:TState->Void) {
+	public inline function onStateChanged(changed:TState->Void):Future<TState> {
 		changed(state);
 		stateChanged += changed;
+		return this;
 	}
 
 	@:from public static inline function from<TState>(value:TState):Future<TState> {

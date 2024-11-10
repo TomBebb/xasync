@@ -1,6 +1,8 @@
 package xasync;
 
-abstract Promise<T, TErr>(Future<PromiseState<T, TErr>>) {
+import xasync.PromiseState;
+
+abstract Promise<T, TErr>(Future<PromiseState<T, TErr>>) from Future<PromiseState<T, TErr>> {
 	/** Returns a promise that is succeeded with a given value **/
 	public static inline function resolve<T>(value:T):Promise<T, Void> {
 		return cast Future.from(PromiseState.Fulfilled(value));
@@ -18,8 +20,8 @@ abstract Promise<T, TErr>(Future<PromiseState<T, TErr>>) {
 	}
 
 	/** Run a callback if this resolves successfully **/
-	public function then(cb:T->Void) {
-		this.onStateChanged((state:PromiseState<T, TErr>) -> {
+	public function then(cb:T->Void):Promise<T, TErr> {
+		return this.onStateChanged((state:PromiseState<T, TErr>) -> {
 			switch (state) {
 				case PromiseState.Fulfilled(v):
 					cb(v);
@@ -29,8 +31,8 @@ abstract Promise<T, TErr>(Future<PromiseState<T, TErr>>) {
 	}
 
 	/** Run a callback if this is rejected with an error **/
-	public function error(cb:TErr->Void) {
-		this.onStateChanged((state:PromiseState<T, TErr>) -> {
+	public function error(cb:TErr->Void):Promise<T, TErr> {
+		return this.onStateChanged((state:PromiseState<T, TErr>) -> {
 			switch (state) {
 				case PromiseState.Rejected(v):
 					cb(v);
@@ -40,8 +42,8 @@ abstract Promise<T, TErr>(Future<PromiseState<T, TErr>>) {
 	}
 
 	/** Run a callback if this is resolved in any way**/
-	public function finally(cb:() -> Void) {
-		this.onStateChanged((state:PromiseState<T, TErr>) -> {
+	public function finally(cb:() -> Void):Promise<T, TErr> {
+		return this.onStateChanged((state:PromiseState<T, TErr>) -> {
 			switch (state) {
 				case PromiseState.Pending:
 				default:
