@@ -18,6 +18,7 @@ abstract Signal<T>(SignalListeners<T>) from SignalListeners<T> {
 		this = [];
 	}
 
+	@:op(A())
 	public inline function invoke(val:T) {
 		for (cb in this) {
 			cb(val);
