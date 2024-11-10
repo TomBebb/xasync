@@ -4,6 +4,7 @@ class Future<TState> {
 	/** The current state of the future **/
 	public var state(default, null):TState;
 
+	/** Track state changes **/
 	public var stateChanged = new Signal<TState>();
 
 	public inline function onStateChanged(changed:TState->Void) {
@@ -15,6 +16,7 @@ class Future<TState> {
 		return new Future<TState>(value, _ -> {});
 	}
 
+	/** Create a new future with the given resolving state and function to pass callback to **/
 	public function new(resolvingState:TState, handler:(stateChange:(state:TState) -> Void) -> Void) {
 		state = resolvingState;
 		handler(newState -> {
