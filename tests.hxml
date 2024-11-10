@@ -1,0 +1,6 @@
+--main TestAll
+-cp tests
+-cp src
+-lib utest
+--interp
+-dce full

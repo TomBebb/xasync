@@ -1,0 +1,19 @@
+{
+	"name": "xasync",
+	"description": "Cross-platform async promises modelled after the JS promise API",
+	"classPath": "src",
+	"url": "https://TomBebb.github.io/xasync/",
+	"contributors": [
+		"tombebb"
+	],
+	"version": "0.1.0",
+	"releasenote": "Initial commit",
+	"tags": [
+		"cross",
+		"utility",
+		"async",
+		"lazy",
+		"promise"
+	],
+	"license": "MIT"
+}
